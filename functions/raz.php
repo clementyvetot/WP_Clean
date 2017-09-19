@@ -13,6 +13,13 @@
 // GESTION DU STYLE DEPUIS L'INTERFACE D'ADMINISTRATION
 //add_editor_style();
 
+//SUPPRESSION MARGIN ADMIN BAR
+add_action('get_header', 'my_filter_head');
+
+function my_filter_head() {
+   remove_action('wp_head', '_admin_bar_bump_cb');
+}; 
+
 // ACTIVATION DES MENUS
 add_theme_support('menus');
 register_nav_menus(array(
@@ -49,9 +56,9 @@ function disable_emojis() {
     remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
     remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
     remove_action( 'wp_print_styles', 'print_emoji_styles' );
-    remove_action( 'admin_print_styles', 'print_emoji_styles' );    
+    remove_action( 'admin_print_styles', 'print_emoji_styles' );
     remove_filter( 'the_content_feed', 'wp_staticize_emoji' );
-    remove_filter( 'comment_text_rss', 'wp_staticize_emoji' );  
+    remove_filter( 'comment_text_rss', 'wp_staticize_emoji' );
     remove_filter( 'wp_mail', 'wp_staticize_emoji_for_email' );
 }
 add_action( 'init', 'disable_emojis' );
@@ -75,4 +82,3 @@ function my_remove_recent_comments_style() {
 
 // SUPPRESION DES ACCENTS DANS LES MEDIAS
 add_filter('sanitize_file_name', 'remove_accents' );
-
